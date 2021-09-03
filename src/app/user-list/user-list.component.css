@@ -1,0 +1,26 @@
+.container {
+    padding: 20px;
+}
+
+.table-toolbar {
+    display: flex;
+    align-items: baseline;
+    width: 100%;
+}
+
+.filter-input {
+    flex: 1;
+    padding-right: 20px;
+}
+
+.user-table {
+    width: 100%;
+}
+
+.mat-row {
+    cursor: pointer;
+}
+
+.mat-row:hover {
+    background-color: #eee;
+}

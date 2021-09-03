@@ -1,0 +1,333 @@
+<form #userForm="ngForm">
+    <div class="header">
+        <button mat-icon-button
+                type="button"
+                aria-label="Back"
+                (click)="close()">
+            <mat-icon>chevron_left</mat-icon>
+        </button>
+        <span class="title">
+            <h2>{{user.firstname}} {{user.lastname}}</h2>
+            <h4>{{user.email}}</h4>
+        </span>
+        <button mat-raised-button
+                type="submit"
+                color="primary"
+                aria-label="Save"
+                [disabled]="userForm.invalid"
+                (click)="save()">
+            Save
+        </button>
+    </div>
+    <div class="scroll-container">
+        <div class="container">
+            <mat-accordion multi>
+                <mat-expansion-panel expanded="true">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            User Information
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="field-container">
+                        <mat-form-field>
+                            <mat-label>First name</mat-label>
+                            <input matInput
+                                   name="firstname"
+                                   [(ngModel)]="user.firstname">
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Middle name</mat-label>
+                            <input matInput
+                                   name="middlename"
+                                   [(ngModel)]="user.middlename">
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Last name</mat-label>
+                            <input matInput
+                                   name="lastname"
+                                   [(ngModel)]="user.lastname">
+                        </mat-form-field>
+                    </div>
+                    <div class="field-container">
+                        <mat-form-field>
+                            <mat-label>Username
+                            </mat-label>
+                            <input matInput
+                                   name="username"
+                                   [(ngModel)]="user.username"
+                                   #username="ngModel"
+                                   required>
+                            <mat-icon matSuffix
+                                      matTooltip="Username can only be modified if a user is not bound to any resources.">
+                                help_outline
+                            </mat-icon>
+                            <mat-error *ngIf="username.invalid">Usename is empty.
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Display Name
+                            </mat-label>
+                            <input matInput
+                                   name="displayname"
+                                   [(ngModel)]="user.displayname">
+                            <mat-icon matSuffix
+                                      matTooltip="Display Name specifies the user’s preferred full name. This name is stored by JumpCloud but is not used in user communications.">
+                                help_outline
+                            </mat-icon>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Company Email
+                            </mat-label>
+                            <input matInput
+                                   type="email"
+                                   name="email"
+                                   [(ngModel)]="user.email"
+                                   #email="ngModel"
+                                   required>
+                            <mat-icon matSuffix
+                                      matTooltip="Company Email is the email address JumpCloud uses for all user communications.">
+                                help_outline
+                            </mat-icon>
+
+                            <mat-error *ngIf="email.invalid">Please enter a valid
+                                email
+                                address.
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="field-container">
+                        <mat-form-field>
+                            <mat-label>
+                                Description
+                            </mat-label>
+                            <textarea matInput
+                                      rows="4"
+                                      name="description"
+                                      [(ngModel)]="user.description"></textarea>
+                            <mat-icon matSuffix
+                                      matTooltip="Description can be used to capture user details that are not documented under other attributes. This attribute propagates to LDAP for any syncing users.">
+                                help_outline
+                            </mat-icon>
+                        </mat-form-field>
+                    </div>
+                </mat-expansion-panel>
+                <mat-expansion-panel expanded="true">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Employment Information
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="field-container">
+                        <mat-form-field>
+                            <mat-label>Employee ID
+                            </mat-label>
+                            <input matInput
+                                   name="employeeIdentifier"
+                                   [(ngModel)]="user.employeeIdentifier">
+                            <mat-icon matSuffix
+                                      matTooltip="Employee ID is a unique identifier which is independent of JumpCloud’s user identifier. It is not required.">
+                                help_outline
+                            </mat-icon>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Job Title
+                            </mat-label>
+                            <input matInput
+                                   name="jobTitle"
+                                   [(ngModel)]="user.jobTitle">
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Employee Type
+                            </mat-label>
+                            <input matInput
+                                   name="employeeType"
+                                   [(ngModel)]="user.employeeType">
+                        </mat-form-field>
+                    </div>
+                    <div class="field-container">
+                        <mat-form-field>
+                            <mat-label>Company
+                            </mat-label>
+                            <input matInput
+                                   name="company"
+                                   [(ngModel)]="user.company">
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Department
+                            </mat-label>
+                            <input matInput
+                                   name="department"
+                                   [(ngModel)]="user.department">
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Cost Center
+                            </mat-label>
+                            <input matInput
+                                   name="costCenter"
+                                   [(ngModel)]="user.costCenter">
+                        </mat-form-field>
+                    </div>
+                    <hr>
+                    <div class="field-container">
+                        <mat-form-field>
+                            <mat-label>Location
+                            </mat-label>
+                            <input matInput
+                                   name="location"
+                                   [(ngModel)]="user.location">
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Work Country
+                            </mat-label>
+                            <mat-select name="workcountry"
+                                        [(ngModel)]="workContactInfo.country">
+                                <mat-option *ngFor="let country of countryList"
+                                            [value]="country.code">
+                                    {{country.name}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="field-container">
+                        <mat-form-field>
+                            <mat-label>Work Phone
+                            </mat-label>
+                            <input matInput
+                                   name="workphone"
+                                   [(ngModel)]="workContactInfo.phone">
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Work Cell
+                            </mat-label>
+                            <input matInput
+                                   name="workcell"
+                                   [(ngModel)]="workContactInfo.cell">
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Work Fax
+                            </mat-label>
+                            <input matInput
+                                   name="workfax"
+                                   [(ngModel)]="workContactInfo.fax">
+                        </mat-form-field>
+                    </div>
+                    <div class="field-container">
+                        <mat-form-field>
+                            <mat-label>Work Street Address
+                            </mat-label>
+                            <input matInput
+                                   name="workstreetAddress"
+                                   [(ngModel)]="workContactInfo.streetAddress">
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>PO Box
+                            </mat-label>
+                            <input matInput
+                                   name="workpoBox"
+                                   [(ngModel)]="workContactInfo.poBox">
+                        </mat-form-field>
+                    </div>
+                    <div class="field-container">
+                        <mat-form-field>
+                            <mat-label>Work City
+                            </mat-label>
+                            <input matInput
+                                   name="worklocality"
+                                   [(ngModel)]="workContactInfo.locality">
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Work State
+                            </mat-label>
+                            <input matInput
+                                   name="workregion"
+                                   [(ngModel)]="workContactInfo.region">
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Work Postal Code
+                            </mat-label>
+                            <input matInput
+                                   name="workpostalCode"
+                                   [(ngModel)]="workContactInfo.postalCode">
+                        </mat-form-field>
+                    </div>
+                </mat-expansion-panel>
+
+                <mat-expansion-panel expanded="true">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Personal Employee Information
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="field-container">
+                        <mat-form-field>
+                            <mat-label>Home Phone
+                            </mat-label>
+                            <input matInput
+                                   name="homephone"
+                                   [(ngModel)]="homeContactInfo.phone">
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Personal Cell
+                            </mat-label>
+                            <input matInput
+                                   name="homecell"
+                                   [(ngModel)]="homeContactInfo.cell">
+                        </mat-form-field>
+                    </div>
+                    <div class="field-container">
+                        <mat-form-field>
+                            <mat-label>Home Street Address
+                            </mat-label>
+                            <input matInput
+                                   name="homestreetAddress"
+                                   [(ngModel)]="homeContactInfo.streetAddress">
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>PO Box
+                            </mat-label>
+                            <input matInput
+                                   name="homepobox"
+                                   [(ngModel)]="homeContactInfo.poBox">
+                        </mat-form-field>
+                    </div>
+                    <div class="field-container">
+                        <mat-form-field>
+                            <mat-label>Home City
+                            </mat-label>
+                            <input matInput
+                                   name="homelocality"
+                                   [(ngModel)]="homeContactInfo.locality">
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Home State
+                            </mat-label>
+                            <input matInput
+                                   name="homeregion"
+                                   [(ngModel)]="homeContactInfo.region">
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Home Postal Code
+                            </mat-label>
+                            <input matInput
+                                   name="homepostalCode"
+                                   [(ngModel)]="homeContactInfo.postalCode">
+                        </mat-form-field>
+                    </div>
+                    <div>
+                        <mat-form-field>
+                            <mat-label>Home Country
+                            </mat-label>
+                            <mat-select name="homecountry"
+                                        [(ngModel)]="homeContactInfo.country">
+                                <mat-option *ngFor="let country of countryList"
+                                            [value]="country.code">
+                                    {{country.name}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </div>
+    </div>
+</form>

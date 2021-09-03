@@ -1,0 +1,19 @@
+<h2 mat-dialog-title>Delete Users</h2>
+<mat-dialog-content class="mat-typography">
+    <p><strong>{{data.count}}</strong>
+        {{data.count > 1 ? 'Users' : 'User'}} selected for deletion.
+    </p>
+    <p><strong>Are you sure</strong> you would like to delete
+        {{data.count > 1 ? 'these Users' : 'this User'}}?
+        Deletion will permanently remove all User data and associations.
+        This action may not be undone.
+    </p>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button
+            mat-dialog-close>Cancel</button>
+    <button mat-raised-button
+            color="primary"
+            [mat-dialog-close]="true"
+            cdkFocusInitial>Delete</button>
+</mat-dialog-actions>

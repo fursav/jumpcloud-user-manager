@@ -1,0 +1,47 @@
+form {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.scroll-container {
+    padding: 0 20px;
+    padding-bottom: 20px;
+    flex: 1;
+    overflow: auto;
+}
+
+.container {
+    margin: auto;
+    max-width: 690px;
+}
+
+.header {
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+}
+
+.title {
+    flex: 1;
+    display: flex;
+    align-items: baseline;
+}
+
+.title > * {
+    margin: 0;
+    padding-right: 10px;
+}
+
+
+.field-container > mat-form-field:not(:last-child) {
+    margin-right: 20px;
+}
+
+mat-form-field {
+    width: 200px;
+}
+
+hr {
+    margin: 20px 0;
+}

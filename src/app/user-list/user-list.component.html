@@ -1,0 +1,88 @@
+<div class="container">
+    <h2>Users</h2>
+    <div class="table-toolbar">
+        <mat-form-field appearance="standard"
+                        class="filter-input">
+            <input matInput
+                   (keyup)="applyFilter(filterInput.value)"
+                   placeholder="Search"
+                   #filterInput>
+        </mat-form-field>
+        <button mat-icon-button
+                color="primary"
+                aria-label="Add"
+                (click)="addUser()">
+            <mat-icon>add</mat-icon>
+        </button>
+        <button mat-icon-button
+                aria-label="Delete"
+                (click)="deleteUsers()"
+                [disabled]="!selection.hasValue()">
+            <mat-icon>delete</mat-icon>
+        </button>
+        <button mat-icon-button
+                [matMenuTriggerFor]="menu"
+                aria-label="Columns">
+            <mat-icon>view_column</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+            <!--Don't hide the menu on click-->
+            <div mat-menu-item
+                 (click)="$event.stopPropagation()"
+                 *ngFor="let col of columnList">
+                <mat-checkbox (change)="toggleCol(col, $event.checked)"
+                              [checked]="col.selected"
+                              [disabled]="!col.selectable">{{col.header}}
+                </mat-checkbox>
+            </div>
+        </mat-menu>
+    </div>
+    <table mat-table
+           [dataSource]="dataSource"
+           matSort
+           class="mat-elevation-z8 user-table">
+
+        <ng-container matColumnDef="select">
+            <th mat-header-cell
+                *matHeaderCellDef>
+                <mat-checkbox (change)="$event ? masterToggle() : null"
+                              [checked]="selection.hasValue() && isAllSelected()"
+                              [indeterminate]="selection.hasValue() && !isAllSelected()">
+                </mat-checkbox>
+            </th>
+            <td mat-cell
+                *matCellDef="let row">
+                <mat-checkbox (click)="$event.stopPropagation()"
+                              (change)="$event ? selection.toggle(row) : null"
+                              [checked]="selection.isSelected(row)">
+                </mat-checkbox>
+            </td>
+        </ng-container>
+        <ng-container *ngFor="let column of columnList"
+                      [matColumnDef]="column.columnDef">
+            <th mat-header-cell
+                *matHeaderCellDef
+                mat-sort-header>
+                {{column.header}}
+            </th>
+            <td mat-cell
+                *matCellDef="let row">
+                {{column.cell(row)}}
+            </td>
+        </ng-container>
+
+        <tr mat-header-row
+            *matHeaderRowDef="visibleColumnIdList"></tr>
+        <tr mat-row
+            (click)="viewUser(row)"
+            *matRowDef="let row; columns: visibleColumnIdList;"></tr>
+
+        <!-- Row shown when there is no matching data. -->
+        <tr class="mat-row"
+            *matNoDataRow>
+            <td class="mat-cell"
+                [attr.colspan]="visibleColumnIdList.length">No data matching the
+                filter</td>
+        </tr>
+    </table>
+</div>
